@@ -4,6 +4,12 @@ naam: {{ name }}
 
 <h2 class="text-3xl font-bold">Connectors</h2>
 
+
+nu: {{nu | date: 'd MMMM YYYY'}}
+bedrag: {{bedrag | euro}}
+
+<!-- asyncdataiets: {{data | async}} -->
+
 <!-- <input [value]="" (keyup)="" [(ngModel)]=""> -->
 
 <table>
@@ -22,7 +28,7 @@ naam: {{ name }}
 				(click)="connector.reversable = !connector.reversable"
 			>
 				<td>{{ connector.name }}</td>
-				<td>{{ connector.type }}</td>
+				<td>{{ connector.type | lowercase }}</td>
 				<td>{{ connector.reversable }}</td>
 				<td><img [src]="connector.photoUrl" class="max-w-24" /></td>
 			</tr>
