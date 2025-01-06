@@ -3,15 +3,18 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EuroPipe } from './pipes/euro.pipe';
 import { FormsModule } from '@angular/forms';
+import { LifeComponent } from "./components/life/life.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, EuroPipe],
+  imports: [RouterOutlet, CommonModule, FormsModule, EuroPipe, LifeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   newConnector = { reversable: false } as Connector;
+
+  showLife = false;
 
   connectors: Connector[] = [
     { name: 'USB Type C', reversable: true, type: 'rectangle', photoUrl: 'https://www.kabelshop.nl/image/Goobay_USB_C_naar_USB_C_kabel_%7C_0.5_meter_%7C_USB_3.2_100%25_koper_Power_Delivery_100_W_Zwart_49252_K010214083_m1_big.jpg' },

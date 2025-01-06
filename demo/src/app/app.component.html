@@ -1,3 +1,13 @@
+<h2 class="text-3xl font-bold">Lifecycle</h2>
+
+<button (click)="showLife = !showLife" class="btn btn-secondary">
+	Toggle life
+</button>
+
+@if (showLife) {
+	<app-life />
+}
+
 <h2 class="text-3xl font-bold">Connectors</h2>
 
 <style>
