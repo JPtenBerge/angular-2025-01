@@ -110,15 +110,26 @@ document.createElement()
 .classList.add()
 ```
 
+## Pipes
 
+Handig voor data formatten!
 
+default pipes:
+- `uppercase`
+- `lowercase`
+- `date`
+- `currency`
+- `number`
+- `percentage`
+- `json` (debugging)
+- `async`  (promises/observables)
 
+## Unittesten
 
-
-
-
-
-
-
-
+- steeds meer logica in onze frontends, dus steeds belangrijker om te testen
+- testtooling is in limbo op het moment.
+  - default keuze: Karma, hun eigen deprecated testrunner, + Jasmine (testframework)
+  - andere opties:
+    - Jest - heeft officiele, maar experimental runner
+    - Vitest - Meta-framework Analog heeft dit geimplementeerd, maar er is nog bizar weinig over geschreven.
 
