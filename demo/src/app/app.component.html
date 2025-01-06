@@ -1,18 +1,6 @@
-naam: {{ name }}
-
-<button (click)="changeName()">Verander naam</button>
-
 <h2 class="text-3xl font-bold">Connectors</h2>
 
-
-nu: {{nu | date: 'd MMMM YYYY'}}
-bedrag: {{bedrag | euro}}
-
-<!-- asyncdataiets: {{data | async}} -->
-
-<!-- <input [value]="" (keyup)="" [(ngModel)]=""> -->
-
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Naam</th>
@@ -24,7 +12,7 @@ bedrag: {{bedrag | euro}}
 	<tbody>
 		@for (connector of connectors; track $index) {
 			<tr
-				[class.bg-yellow-100]="connector.reversable"
+				[class.bg-yellow-8]="connector.reversable"
 				(click)="connector.reversable = !connector.reversable"
 			>
 				<td>{{ connector.name }}</td>
@@ -33,9 +21,5 @@ bedrag: {{bedrag | euro}}
 				<td><img [src]="connector.photoUrl" class="max-w-24" /></td>
 			</tr>
 		}
-
-		<!-- <tr *ngFor="let connector of connectors" *ngIf="connector.type === 'ding'">
-
-    </tr> -->
 	</tbody>
 </table>
