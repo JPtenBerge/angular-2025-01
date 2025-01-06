@@ -1,25 +1,109 @@
 <h2 class="text-3xl font-bold">Connectors</h2>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>Naam</th>
-			<th>Type</th>
-			<th>Is reversebaar</th>
-			<th>Foto</th>
-		</tr>
-	</thead>
-	<tbody>
-		@for (connector of connectors; track $index) {
-			<tr
-				[class.bg-yellow-8]="connector.reversable"
-				(click)="connector.reversable = !connector.reversable"
-			>
-				<td>{{ connector.name }}</td>
-				<td>{{ connector.type | lowercase }}</td>
-				<td>{{ connector.reversable }}</td>
-				<td><img [src]="connector.photoUrl" class="max-w-24" /></td>
+<style>
+	/* input.ng-invalid.ng-dirty {
+		background: lightpink;
+	}
+	input.ng-valid.ng-dirty {
+		background: lightgreen;;
+	} */
+</style>
+
+TRV's: template reference variable
+
+<div class="hoi" #bla></div>
+{{ bla.className }}
+
+<!-- <button (click)="addModalDialog.open()"></button>
+<add-someting-modal-dialog #addModalDialog /> -->
+
+<div class="flex gap-10">
+	<form (submit)="addConnector()" #form="ngForm">
+		<ol class="grid gap-3 grid-cols-[max-content,_minmax(300px,_1fr)]">
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-name">Naam:</label>
+				<input
+					id="input-name"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					[(ngModel)]="newConnector.name"
+					name="name"
+					required
+					pattern="^[a-zA-Z0-9-]+$"
+					#inputName="ngModel"
+				/>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-type">Type:</label>
+				<select
+					id="input-type"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					[(ngModel)]="newConnector.type"
+					name="type"
+					required
+				>
+					<option>Rectangle</option>
+					<option>Round</option>
+					<option>Screwed</option>
+					<option>Trapazoid</option>
+					<option>Weird</option>
+					<option>Fuck all</option>
+				</select>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-reversebaar">Is reversebaar:</label>
+				<input
+					id="input-reversebaar"
+					type="checkbox"
+					class="checkbox checkbox-bordered-primary checkbox-primary"
+					[(ngModel)]="newConnector.reversable"
+					name="reversable"
+				/>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-name">Foto URL:</label>
+				<input
+					id="input-name"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					[(ngModel)]="newConnector.photoUrl"
+					name="photoUrl"
+					required
+				/>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<button
+					class="btn btn-primary col-span-2"
+					[disabled]="!form.valid"
+				>
+					Voeg connector toe
+				</button>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<span class="col-span-2">{{ newConnector | json }} </span>
+			</li>
+		</ol>
+	</form>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Naam</th>
+				<th>Type</th>
+				<th>Is reversebaar</th>
+				<th>Foto</th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@for (connector of connectors; track $index) {
+				<tr
+					[class.bg-yellow-8]="connector.reversable"
+					(click)="connector.reversable = !connector.reversable"
+				>
+					<td>{{ connector.name }}</td>
+					<td>{{ connector.type | lowercase }}</td>
+					<td>{{ connector.reversable }}</td>
+					<td><img [src]="connector.photoUrl" class="max-w-24" /></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
