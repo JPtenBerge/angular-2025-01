@@ -2,40 +2,34 @@ naam: {{ name }}
 
 <button (click)="changeName()">Verander naam</button>
 
-<style>
-  td img {
-    max-width: 100px;
-  }
-  .awesome {
-    background: lightgoldenrodyellow;
-  }
-</style>
-
-<h2>Connectors</h2>
+<h2 class="text-3xl font-bold">Connectors</h2>
 
 <!-- <input [value]="" (keyup)="" [(ngModel)]=""> -->
 
 <table>
-  <thead>
-    <tr>
-      <th>Naam</th>
-      <th>Type</th>
-      <th>Is reversebaar</th>
-      <th>Foto</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (connector of connectors; track connector) {
-      <tr [class.awesome]="connector.reversable" (auxclick)="connector.reversable = !connector.reversable">
-        <td>{{ connector.name }}</td>
-        <td>{{ connector.type }}</td>
-        <td>{{ connector.reversable }}</td>
-        <td><img [src]="connector.photoUrl" /></td>
-      </tr>
-    }
+	<thead>
+		<tr>
+			<th>Naam</th>
+			<th>Type</th>
+			<th>Is reversebaar</th>
+			<th>Foto</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (connector of connectors; track $index) {
+			<tr
+				[class.bg-yellow-100]="connector.reversable"
+				(click)="connector.reversable = !connector.reversable"
+			>
+				<td>{{ connector.name }}</td>
+				<td>{{ connector.type }}</td>
+				<td>{{ connector.reversable }}</td>
+				<td><img [src]="connector.photoUrl" class="max-w-24" /></td>
+			</tr>
+		}
 
-    <!-- <tr *ngFor="let connector of connectors" *ngIf="connector.type === 'ding'">
+		<!-- <tr *ngFor="let connector of connectors" *ngIf="connector.type === 'ding'">
 
     </tr> -->
-  </tbody>
+	</tbody>
 </table>
