@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { EuroPipe } from './pipes/euro.pipe';
 import { FormsModule } from '@angular/forms';
 import { LifeComponent } from "./components/life/life.component";
+import { AutocompleterComponent } from "./components/autocompleter/autocompleter.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, EuroPipe, LifeComponent],
+  imports: [RouterOutlet, CommonModule, FormsModule, EuroPipe, LifeComponent, AutocompleterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -30,6 +31,10 @@ export class AppComponent {
     // JSON.parse(JSON.stringify(this.newConnector)) // deep clone
     this.connectors.push(structuredClone(this.newConnector));
     this.newConnector = { reversable: false } as Connector;
+  }
+
+  handleAutocompleterSelect(connector: Connector) {
+    console.log('yay! werkt!', connector);
   }
 
   // changeName() {

@@ -5,8 +5,12 @@
 </button>
 
 @if (showLife) {
-	<app-life />
+	<app-life message="Hallooooooooooo" message2="heuj" />
 }
+
+
+<app-autocompleter [data]="connectors" (selectItem)="handleAutocompleterSelect($event)" />
+
 
 <h2 class="text-3xl font-bold">Connectors</h2>
 

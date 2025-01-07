@@ -1,0 +1,17 @@
+<input
+	class="input input-primary"
+	(input)="autocomplete()"
+	(keydown.arrowdown)="next()"
+    (keydown.enter)="select()"
+	[(ngModel)]="query"
+/>
+
+@if (suggestions) {
+	<ul>
+		@for (suggestion of suggestions; track $index) {
+			<li [class.bg-slate-10]="highlightedSuggestionIndex === $index">
+				{{ $index }} {{ suggestion | json }}
+			</li>
+		}
+	</ul>
+}

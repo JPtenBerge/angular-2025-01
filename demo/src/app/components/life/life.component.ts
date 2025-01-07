@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, input, OnDestroy, OnInit, output } from '@angular/core';
 
 @Component({
 	selector: 'app-life',
@@ -8,12 +8,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class LifeComponent implements OnInit, OnDestroy {
 	intervalId!: ReturnType<typeof setInterval>;
 
+	@Input() message2?: string;
+	message = input<string>(); // Angular 16: SIGNALS
+
 	constructor() {
-		console.log('[life] constructor');
+		console.log('[life] constructor', this.message(), this.message2);
 	}
 
 	ngOnInit() {
-		console.log('[life] ngOnInit');
+		console.log('[life] ngOnInit', this.message(), this.message2);
 
 		this.intervalId = setInterval(() => {
 			console.log('interval!');
