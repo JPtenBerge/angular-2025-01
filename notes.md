@@ -162,3 +162,90 @@ let clone1 = { ...this.newConnector }; // shallow copy
 let clone2 = lodash _.cloneDeep();
 let clone3 = JSON.parse(JSON.stringify(this.newConnector)) // deep clone, maar beperkt qua datatypen: { x: 0n }
 ```
+
+## Services/DI
+
+Worden gebruikt voor:
+- functionele services (NavigateService, berekeningen)
+- data access layer - HTTPS/WebSockets/gRPC/WebTransport
+- state management
+  - wizards
+  - data - store pattern - history
+    - NgRx
+
+## Backendcommunicatie
+
+"hoe ververs ik mijn lijstje?"
+
+1. direct toevoegen aan lokale array
+   - nadeel: bij server error = ohoh
+   - heul goed communiceren
+   - voordeel: big snel
+   - optimistic UI
+2. wat er bij POST terugkomt, toevoegen aan lokale array
+   - voordeel: redelijk sneller, 1 request maar
+   - nadeel: niet volledig in sync met server - filtered/groepeerd/sortering
+3. gewoon weer een GET en alle data ophalen
+   - voordeel: meest in sync met de server
+   - voordeel: dit is vaak het gemakkelijkst te implementeren - getAll()
+   - nadeel: slooooooooooom. maximaal serverbelastend
+
+waarom `HttpClient`? is `fetch()` niet voldoende?
+- `HttpClient` werkt met Observables / RxJS
+- `fetch()` - 500 wordt niet gezien als een error
+- `HttpClient` heeft interceptors
+  - request  JWT
+  - response  '2024-01-06' datumstrings parsen
+- JSON wordt al geparset voor je
+- TypeScript, aangeven wat je terug verwacht: `this.http.get<Product[]>(...);`
+
+## Routing
+
+Best wat features!
+
+- basaal routing
+- parameters
+- child routes
+- lazy loading
+- route resolvers
+  - alvast wat data vroeg beginnen in te laden
+- route guards
+  - routes afschermen. niet ingelogd? dan mag je niet naar /admin
+
+[De router was ook de reden dat Angular 3 niet uitkwam](https://stackoverflow.com/questions/41164866/why-was-angular-3-skipped-and-what-are-the-major-differences-in-angular-4-beta).
+
+### Routing in een SPA
+
+- bepaalde HTML-stukjes inladen
+- andere components laten zien
+- pagina's kan simuleren
+- GEEN paginarefreshes
+
+manieren:
+
+1. alle 200 pagina-HTML ergens in je DOM opnemen
+    ```html
+    <div id="page-109" style="display: none;">...</div>
+    <div id="page-10">...</div>
+    <div id="page-11" style="display: none;">...</div>
+    <div id="page-12" style="display: none;">...</div>
+    <div id="page-13" style="display: none;">...</div>
+    ```
+2. alle 200 pagina-HTML ergens in je JS opnemen
+   - dus heel veel template-strings
+3. bij navigeren de HTML-template van de server ophalen - lazy-loading
+
+
+Een pattern wat PWAs vaak gebruiken - PRPL:
+
+- Push critical resources  <== SSR
+- Render initial route   <== SSR
+- Pre-cache additional routes
+- Lazy-load the rest
+
+In Angular routing aan de praat krijgen:
+
+1. `<router-outlet />`  <== waar jouw pagina's/views in worden geplaatst
+2. routes `app.routes.ts`  `provideRouter(routes)`
+3. alles van `AppComponent` opsplitsen naar andere files
+
