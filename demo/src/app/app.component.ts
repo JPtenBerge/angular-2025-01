@@ -1,11 +1,12 @@
-import { CommonModule, UpperCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { EuroPipe } from './pipes/euro.pipe';
 import { FormsModule } from '@angular/forms';
+import { EuroPipe } from './pipes/euro.pipe';
 import { LifeComponent } from './components/life/life.component';
 import { AutocompleterComponent } from './components/autocompleter/autocompleter.component';
-import { HttpClient } from '@angular/common/http';
+import { ConnectorDal } from './dal/connector.dal';
+import { Connector } from './types/connector';
 
 @Component({
 	selector: 'app-root',
@@ -17,42 +18,22 @@ export class AppComponent implements OnInit {
 	newConnector = { reversable: false } as Connector;
 	showLife = false;
 	connectors?: Connector[];
-	http = inject(HttpClient);
-
-	isFetchingConnectors = false;
+	connectorDal = inject(ConnectorDal);
 
 	ngOnInit() {
-		this.http.get<Connector[]>('http://localhost:3000/connectors').subscribe(connectors => {
+		this.connectorDal.getAll().subscribe(connectors => {
 			this.connectors = connectors;
 		});
 	}
 
 	addConnector() {
-		// this.connectors!.push(structuredClone(this.newConnector));
-
-		this.http
-			.post<Connector>('http://localhost:3000/connectors', this.newConnector)
-			.subscribe(updatedConnector => {
-				this.connectors?.push(updatedConnector);
-			});
-
+		this.connectorDal.add(this.newConnector).subscribe(updatedConnector => {
+			this.connectors?.push(updatedConnector);
+		});
 		this.newConnector = { reversable: false } as Connector;
 	}
 
 	handleAutocompleterSelect(connector: Connector) {
 		console.log('yay! werkt!', connector);
 	}
-
-	// changeName() {
-	//   setTimeout(() => {
-	//     this.name += ' Youri na timeout';
-	//   }, 2000);
-	// }
-}
-
-interface Connector {
-	name: string;
-	reversable: boolean;
-	type: string;
-	photoUrl: string;
 }
