@@ -1,0 +1,11 @@
+<h2 class="text-3xl font-bold">Lifecycle</h2>
+
+<button (click)="showLife = !showLife" class="btn btn-secondary">Toggle life</button>
+
+@if (showLife) {
+	<app-life message="Hallooooooooooo" message2="heuj" />
+}
+
+@if (connectors) {
+	<app-autocompleter [data]="connectors" (selectItem)="handleAutocompleterSelect($event)" />
+}
