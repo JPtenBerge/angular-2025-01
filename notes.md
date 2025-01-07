@@ -6,6 +6,7 @@
 - Frontend benchmarks: https://github.com/krausest/js-framework-benchmark
 - Angular Material: https://material.angular.io/
 - Angular roadmap: https://angular.dev/roadmap
+- State management NgRx: https://ngrx.io/
 
 ## Playwright vs Cypress
 
@@ -133,3 +134,30 @@ default pipes:
     - Jest - heeft officiele, maar experimental runner
     - Vitest - Meta-framework Analog heeft dit geimplementeerd, maar er is nog bizar weinig over geschreven.
 
+## Soorten webapps
+
+SPA - Single Page App
+- Angular React Vue Svelte
+- die initiele paginaladen
+
+SSR - Server-side Rendering
+- complementair aan de SPA
+- React Next.js, Vue Nuxt.js, Angular @angular/ssr, Svelte SvelteKit, Qwik QwikCity, 
+  Solid SolidStart
+- doet die allereerste paginabezoek wordt server-side gerenderd. Op de achtergrond wordt dan al die interactieve shizzle opgestuurd
+    - hydration - incremental hydration / partial hydration - streaming hydration
+
+SSG - Static Site Generation
+- voor ieder product wordt er @ buildtime een `.html`-bestand gegenereerd
+- 11ty Astro HUGO
+
+MPA - Multi Page App
+- PHP Spring ASP.NET WebForms/MVC/Core
+
+## How to clone an object
+
+```ts
+let clone1 = { ...this.newConnector }; // shallow copy
+let clone2 = lodash _.cloneDeep();
+let clone3 = JSON.parse(JSON.stringify(this.newConnector)) // deep clone, maar beperkt qua datatypen: { x: 0n }
+```

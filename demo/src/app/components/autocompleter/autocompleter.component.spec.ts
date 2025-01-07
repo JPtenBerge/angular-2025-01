@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutocompleterComponent } from './autocompleter.component';
+import { NavigateService } from '../../services/navigate.service';
 
 interface ExampleData {
 	x?: string | undefined | number;
@@ -10,9 +11,13 @@ interface ExampleData {
 describe('AutocompleterComponent', () => {
 	let fixture: ComponentFixture<AutocompleterComponent<ExampleData>>;
 	let sut: AutocompleterComponent<ExampleData>;
+	let navigateServiceMock: jasmine.SpyObj<NavigateService>;
 
 	beforeEach(() => {
+		navigateServiceMock = jasmine.createSpyObj<NavigateService>('NavigateServiceMock', ['next']);
+
 		TestBed.configureTestingModule({
+			providers: [{ provide: NavigateService, useValue: navigateServiceMock }],
 			imports: [AutocompleterComponent],
 		});
 
@@ -22,11 +27,7 @@ describe('AutocompleterComponent', () => {
 
 	it('autocompletes a list of suggestions with a basic query', () => {
 		sut.query = 'o';
-		fixture.componentRef.setInput('data', [
-			{ x: 'hoi' },
-			{ x: 'heuj' },
-			{ x: 'hallo' },
-		]);
+		fixture.componentRef.setInput('data', [{ x: 'hoi' }, { x: 'heuj' }, { x: 'hallo' }]);
 
 		sut.autocomplete();
 
@@ -35,11 +36,7 @@ describe('AutocompleterComponent', () => {
 
 	it('does not offer/clear suggestions with no query', () => {
 		sut.query = null;
-		fixture.componentRef.setInput('data', [
-			{ x: 'hoi' },
-			{ x: 'heuj' },
-			{ x: 'hallo' },
-		]);
+		fixture.componentRef.setInput('data', [{ x: 'hoi' }, { x: 'heuj' }, { x: 'hallo' }]);
 
 		sut.autocomplete();
 
@@ -75,45 +72,16 @@ describe('AutocompleterComponent', () => {
 		expect(sut.suggestions).toEqual([{ x: undefined, y: 'hallo' }]);
 	});
 
-	describe('nexting', () => {
-		beforeEach(() => {
-			sut.query = 'h';
-			fixture.componentRef.setInput('data', [
-				{ x: 'hoi' },
-				{ x: 'heuj' },
-				{ x: 'hallo' },
-			]);
-			sut.autocomplete(); // <== WHAT THE SIGMA - black box   white box
-		});
-
-		it('nexts to the first suggestion when nothing is highlighted', () => {
-			sut.next();
-
-			expect(sut.highlightedSuggestionIndex).toBe(0);
-		});
-
-		it('nexts to the second suggestion when the first suggestion is highlighted', () => {
-			sut.next();
-			sut.next();
-
-			expect(sut.highlightedSuggestionIndex).toBe(1);
-		});
-
-		it('nexts to the first suggestion when the last suggestion is highlighted', () => {
-			sut.suggestions!.forEach((s) => sut.next());
-			sut.next();
-
-			expect(sut.highlightedSuggestionIndex).toBe(0);
-		});
+	it(`uses ${NavigateService.name} for nexting`, () => {
+		navigateServiceMock.next.and.returnValue(42);
+		sut.next();
+		expect(navigateServiceMock.next).toHaveBeenCalled();
+		expect(sut.highlightedSuggestionIndex).toBe(42);
 	});
 
 	it('selects suggestions', () => {
 		sut.query = 'o';
-		fixture.componentRef.setInput('data', [
-			{ x: 'hoi' },
-			{ x: 'heuj' },
-			{ x: 'hallo' },
-		]);
+		fixture.componentRef.setInput('data', [{ x: 'hoi' }, { x: 'heuj' }, { x: 'hallo' }]);
 		sut.autocomplete();
 		sut.next();
 		spyOn(sut.selectItem, 'emit');
@@ -125,11 +93,7 @@ describe('AutocompleterComponent', () => {
 
 	it('does not select if nothing has been highlighted', () => {
 		sut.query = 'o';
-		fixture.componentRef.setInput('data', [
-			{ x: 'hoi' },
-			{ x: 'heuj' },
-			{ x: 'hallo' },
-		]);
+		fixture.componentRef.setInput('data', [{ x: 'hoi' }, { x: 'heuj' }, { x: 'hallo' }]);
 		spyOn(sut.selectItem, 'emit');
 
 		sut.select();

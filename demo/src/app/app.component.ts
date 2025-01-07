@@ -25,10 +25,6 @@ export class AppComponent {
   ];
 
   addConnector() {
-    // how to clone an object
-    // const newqqq = { ...this.newConnector }; // shallow copy
-    // lodash _.cloneDeep()
-    // JSON.parse(JSON.stringify(this.newConnector)) // deep clone
     this.connectors.push(structuredClone(this.newConnector));
     this.newConnector = { reversable: false } as Connector;
   }

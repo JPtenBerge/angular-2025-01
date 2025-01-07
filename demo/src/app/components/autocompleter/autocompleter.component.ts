@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
 	selector: 'app-autocompleter',
@@ -14,6 +15,8 @@ export class AutocompleterComponent<T extends {}> {
 
 	suggestions: T[] | null = null;
 	highlightedSuggestionIndex: number | null = null;
+
+	navigateService = inject(NavigateService);
 
 	autocomplete() {
 		if (this.query === null) {
@@ -34,16 +37,14 @@ export class AutocompleterComponent<T extends {}> {
 	}
 
 	next() {
-		this.highlightedSuggestionIndex ??= -1;
-		this.highlightedSuggestionIndex =
-			(this.highlightedSuggestionIndex + 1) % this.suggestions!.length;
+		this.highlightedSuggestionIndex = this.navigateService.next(
+			this.suggestions!,
+			this.highlightedSuggestionIndex!,
+		);
 	}
 
 	select() {
-		if (
-			this.highlightedSuggestionIndex === null ||
-			this.suggestions === null
-		) {
+		if (this.highlightedSuggestionIndex === null || this.suggestions === null) {
 			return;
 		}
 		let suggestion = this.suggestions[this.highlightedSuggestionIndex];
