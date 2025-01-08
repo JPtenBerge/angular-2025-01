@@ -1,9 +1,8 @@
 <input
 	class="input input-primary"
-	(input)="autocomplete()"
 	(keydown.arrowdown)="next()"
     (keydown.enter)="select()"
-	[(ngModel)]="query"
+	[formControl]="query"
 />
 
 @if (suggestions) {

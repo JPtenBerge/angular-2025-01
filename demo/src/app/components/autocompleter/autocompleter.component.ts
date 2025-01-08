@@ -1,15 +1,16 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { FormControl, FormsModule } from '@angular/forms';
 import { NavigateService } from '../../services/navigate.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
 	selector: 'app-autocompleter',
 	standalone: false,
 	templateUrl: './autocompleter.component.html',
 })
-export class AutocompleterComponent<T extends {}> {
-	query: string | null = null;
+export class AutocompleterComponent<T extends {}> implements OnInit {
+	query = new FormControl<string>('');
 	data = input.required<T[]>();
 	selectItem = output<T>();
 
@@ -18,7 +19,17 @@ export class AutocompleterComponent<T extends {}> {
 
 	navigateService = inject(NavigateService);
 
+	ngOnInit() {
+		this.query.valueChanges
+			.pipe(
+				debounceTime(300),
+				distinctUntilChanged()
+			)
+			.subscribe(x => this.autocomplete());
+	}
+
 	autocomplete() {
+		console.log('autocompleting!', this.query.value);
 		if (this.query === null) {
 			this.suggestions = null;
 			return;
@@ -28,7 +39,7 @@ export class AutocompleterComponent<T extends {}> {
 
 		for (let item of this.data()) {
 			for (let [prop, value] of Object.entries(item)) {
-				if (typeof value === 'string' && value.includes(this.query)) {
+				if (typeof value === 'string' && value.includes(this.query.value!)) {
 					this.suggestions.push(item);
 					break;
 				}

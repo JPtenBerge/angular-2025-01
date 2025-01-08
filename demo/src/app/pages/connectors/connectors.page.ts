@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, input } from '@angular/core';
 import { ConnectorDal } from '../../dal/connector.dal';
 import { Connector } from '../../types/connector';
 import { CommonModule } from '@angular/common';
@@ -55,24 +55,21 @@ export class ConnectorsPage {
 	// });
 
 	ngOnInit() {
-		this.connectorDal.getAll().subscribe(connectors => {
+		this.connectorDal.getAll().subscribe(connectors => { // updates
+			console.log('connectors:', connectors);
 			this.connectors = connectors;
 		});
 	}
 
 	addConnector() {
-		this.connectorDal.add(this.newConnector).subscribe(updatedConnector => {
-			this.connectors?.push(updatedConnector);
-		});
+		this.connectorDal.add(this.newConnector);
 		this.newConnector = { reversable: false } as Connector;
 	}
 
 	addConnectorReactive() {
 		// this.addConnectorForm.reset(); // reset validators  NULL
 
-		this.connectorDal.add(this.addConnectorForm.getRawValue()).subscribe(updatedConnector => {
-			this.connectors?.push(updatedConnector);
-		});
+		this.connectorDal.add(this.addConnectorForm.getRawValue());
 		this.newConnector = { reversable: false } as Connector;
 	}
 }

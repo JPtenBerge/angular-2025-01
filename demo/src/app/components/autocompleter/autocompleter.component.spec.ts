@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutocompleterComponent } from './autocompleter.component';
 import { NavigateService } from '../../services/navigate.service';
+import { of } from 'rxjs';
 
 interface ExampleData {
 	x?: string | undefined | number;
