@@ -5,7 +5,7 @@ import { NavigateService } from '../../services/navigate.service';
 
 @Component({
 	selector: 'app-autocompleter',
-	imports: [JsonPipe, FormsModule],
+	standalone: false,
 	templateUrl: './autocompleter.component.html',
 })
 export class AutocompleterComponent<T extends {}> {

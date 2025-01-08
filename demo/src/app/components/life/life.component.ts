@@ -2,7 +2,7 @@ import { Component, Input, input, OnDestroy, OnInit, output } from '@angular/cor
 
 @Component({
 	selector: 'app-life',
-	imports: [],
+	standalone: false,
 	templateUrl: './life.component.html',
 })
 export class LifeComponent implements OnInit, OnDestroy {

@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { LifeComponent } from '../../components/life/life.component';
 import { AutocompleterComponent } from '../../components/autocompleter/autocompleter.component';
 import { ActivatedRoute } from '@angular/router';
+import { ComponentsModule } from '../../components/components.module';
 
 @Component({
-	imports: [CommonModule, FormsModule, LifeComponent, AutocompleterComponent],
+	imports: [CommonModule, FormsModule, ComponentsModule],
 	templateUrl: './zooi.page.html',
 })
 export class ZooiPage {
