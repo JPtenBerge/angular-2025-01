@@ -31,6 +31,12 @@ TRV's: template reference variable
 					pattern="^[a-zA-Z0-9-]+$"
 					#inputName="ngModel"
 				/>
+				@if (inputName.invalid) {
+					*
+				}
+				@if (inputName.errors?.['required']) {
+					Dit veld is verplicht
+				}
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
 				<label for="input-type">Type:</label>
@@ -76,6 +82,65 @@ TRV's: template reference variable
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
 				<span class="col-span-2">{{ newConnector | json }} </span>
+			</li>
+		</ol>
+	</form>
+
+	<form (submit)="addConnectorReactive()" [formGroup]="addConnectorForm">
+		<ol class="grid gap-3 grid-cols-[max-content,_minmax(300px,_1fr)]">
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-name">Naam:</label>
+				<input
+					id="input-name"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					formControlName="name"
+				/>
+				@if (f.name.touched &&f.name.invalid) {
+					<p>*</p>
+				}
+				@if (f.name.touched && f.name.errors?.['required']) {
+					<p>Dit veld is verplicht</p>
+				}
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-type">Type:</label>
+				<select
+					id="input-type"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					formControlName="type"
+				>
+					<option>Rectangle</option>
+					<option>Round</option>
+					<option>Screwed</option>
+					<option>Trapazoid</option>
+					<option>Weird</option>
+					<option>Fuck all</option>
+				</select>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-reversebaar">Is reversebaar:</label>
+				<input
+					id="input-reversebaar"
+					type="checkbox"
+					class="checkbox checkbox-bordered-primary checkbox-primary"
+					formControlName="reversable"
+				/>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<label for="input-name">Foto URL:</label>
+				<input
+					id="input-name"
+					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+					formControlName="photoUrl"
+				/>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<button class="btn btn-primary col-span-2" [disabled]="!addConnectorForm.valid">
+					Voeg connector toe
+				</button>
+			</li>
+			<li class="grid col-span-2 grid-cols-subgrid items-center">
+				<span class="col-span-2">{{ addConnectorForm.value | json }} </span>
 			</li>
 		</ol>
 	</form>
