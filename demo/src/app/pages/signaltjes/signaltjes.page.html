@@ -1,0 +1,27 @@
+<p>signaltjes works!</p>
+
+<button (click)="optellinator()" class="btn btn-secondary">Hoog op</button>
+<button (click)="verhoogDinges()" class="btn btn-secondary">Verhoog dinges</button>
+
+<dl>
+    <dt>Getal:</dt>
+    <dd>{{getal()}}</dd>
+    <dt>Verdubbelaar:</dt>
+    <dd>{{verdubbelaar()}}</dd>
+    <dt>mijnCustomSignal:</dt>
+    <dd>{{mijnCustomSignal()}}</dd>
+    <dt>dinges:</dt>
+    <dd>{{dinges()}}</dd>
+</dl>
+
+Connectors:
+@if (connectorsQuery.isPending()) {
+    Bezig met connectors te laden!
+}
+@else {
+    <ul>
+        @for(connector of connectorsQuery.data(); track $index) {
+            <li>{{connector | json}}</li>
+        }
+    </ul>
+}

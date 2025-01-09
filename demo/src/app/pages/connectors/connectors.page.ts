@@ -1,4 +1,4 @@
-import { Component, Inject, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, inject, input } from '@angular/core';
 import { ConnectorDal } from '../../dal/connector.dal';
 import { Connector } from '../../types/connector';
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,7 @@ export class ConnectorsPage {
 	showLife = false;
 	connectors?: Connector[];
 	connectorDal = inject(ConnectorDal);
+	cdr = inject(ChangeDetectorRef);
 
 	fb = inject(NonNullableFormBuilder);
 
@@ -58,6 +59,7 @@ export class ConnectorsPage {
 		this.connectorDal.getAll().subscribe(connectors => { // updates
 			console.log('connectors:', connectors);
 			this.connectors = connectors;
+			this.cdr.markForCheck();
 		});
 	}
 

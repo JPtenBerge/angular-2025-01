@@ -3,6 +3,7 @@ import { provideRouter, RouterModule, withComponentInputBinding } from '@angular
 
 import { routes } from './app.routes';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideTanStackQuery, QueryClient } from '@tanstack/angular-query-experimental';
 // import { NavigateService } from './services/navigate.service';
 
 export const appConfig: ApplicationConfig = {
@@ -10,6 +11,7 @@ export const appConfig: ApplicationConfig = {
 		provideRouter(routes, withComponentInputBinding()),
 		provideHttpClient(),
 		provideExperimentalZonelessChangeDetection(),
+		provideTanStackQuery(new QueryClient())
 		// hip nieuw Angular werkt met provide...()
 		// HttpClientModule,
 		// RouterModule

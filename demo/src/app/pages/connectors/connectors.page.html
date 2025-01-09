@@ -21,9 +21,9 @@ TRV's: template reference variable
 	<form (submit)="addConnector()" #form="ngForm">
 		<ol class="grid gap-3 grid-cols-[max-content,_minmax(300px,_1fr)]">
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<label for="input-name">Naam:</label>
+				<label for="input-name-template">Naam:</label>
 				<input
-					id="input-name"
+					id="input-name-template"
 					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
 					[(ngModel)]="newConnector.name"
 					name="name"
@@ -39,9 +39,9 @@ TRV's: template reference variable
 				}
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<label for="input-type">Type:</label>
+				<label for="input-type-template">Type:</label>
 				<select
-					id="input-type"
+					id="input-type-template"
 					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
 					[(ngModel)]="newConnector.type"
 					name="type"
@@ -56,9 +56,9 @@ TRV's: template reference variable
 				</select>
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<label for="input-reversebaar">Is reversebaar:</label>
+				<label for="input-reversebaar-template">Is reversebaar:</label>
 				<input
-					id="input-reversebaar"
+					id="input-reversebaar-template"
 					type="checkbox"
 					class="checkbox checkbox-bordered-primary checkbox-primary"
 					[(ngModel)]="newConnector.reversable"
@@ -66,9 +66,9 @@ TRV's: template reference variable
 				/>
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<label for="input-name">Foto URL:</label>
+				<label for="input-photo-url-template">Foto URL:</label>
 				<input
-					id="input-name"
+					id="input-photo-url-template"
 					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
 					[(ngModel)]="newConnector.photoUrl"
 					name="photoUrl"
@@ -86,7 +86,7 @@ TRV's: template reference variable
 		</ol>
 	</form>
 
-	<form (submit)="addConnectorReactive()" [formGroup]="addConnectorForm">
+	<form (submit)="addConnectorReactive()" [formGroup]="addConnectorForm" data-testid="goeie-form">
 		<ol class="grid gap-3 grid-cols-[max-content,_minmax(300px,_1fr)]">
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
 				<label for="input-name">Naam:</label>
@@ -127,15 +127,15 @@ TRV's: template reference variable
 				/>
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<label for="input-name">Foto URL:</label>
+				<label for="input-photo-url">Foto URL:</label>
 				<input
-					id="input-name"
+					id="input-photo-url"
 					class="input input-primary invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
 					formControlName="photoUrl"
 				/>
 			</li>
 			<li class="grid col-span-2 grid-cols-subgrid items-center">
-				<button class="btn btn-primary col-span-2" [disabled]="!addConnectorForm.valid">
+				<button class="btn btn-primary col-span-2" [disabled]="!addConnectorForm.valid" data-testid="submit-button">
 					Voeg connector toe
 				</button>
 			</li>

@@ -11,6 +11,7 @@ export class ConnectorDal {
 
 	getAll() {
 		this.http.get<Connector[]>('http://localhost:3000/connectors').subscribe(connectors => {
+			console.log('nexting:', connectors);
 			this.source.next(connectors);
 		});
 
