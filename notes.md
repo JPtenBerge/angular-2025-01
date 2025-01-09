@@ -8,6 +8,8 @@
 - Angular roadmap: https://angular.dev/roadmap
 - State management NgRx: https://ngrx.io/
 - Angular-query van TanStack, tof voor HTTP-requests: https://tanstack.com/query/latest/docs/framework/angular/overview. Houdt zelf states bij als `isPending()` en `isSuccess()` (tof voor loading indicators) en kan GET-requests retryen.
+- Coole visualizaties RxJS: https://softwaremill.com/learn-reactive-programming-with-rx-playground/
+
 
 ## Playwright vs Cypress
 
