@@ -1,0 +1,21 @@
+<h1>Internals</h1>
+
+naam: {{name}}
+
+<button (click)="changeName()" class="btn btn-secondary">Verander naam</button>
+
+<div (mousemove)="move()" (mousemove)="move2()" class="w-80 h-40 bg-slate-3">hover hier</div>
+
+<hr class="divider-horizontal" />
+
+<button class="btn btn-secondary" (click)="addCar()">Add car</button>
+
+<div class="flex gap-5">
+	<ul>
+		@for(car of cars; track $index) {
+		<li>{{car.make}} {{car.model}}</li>
+		}
+	</ul>
+
+	<app-car-viewer [cars]="cars" />
+</div>

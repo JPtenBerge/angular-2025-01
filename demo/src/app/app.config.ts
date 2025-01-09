@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, NgZone, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, RouterModule, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -7,10 +7,9 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes, withComponentInputBinding()),
 		provideHttpClient(),
-
+		provideExperimentalZonelessChangeDetection(),
 		// hip nieuw Angular werkt met provide...()
 		// HttpClientModule,
 		// RouterModule

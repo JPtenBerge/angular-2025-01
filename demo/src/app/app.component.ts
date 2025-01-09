@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ApplicationRef, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,4 +7,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+	appRef = inject(ApplicationRef);
+
+	ngOnInit() {
+		// this.appRef.whenStable
+	}
+}

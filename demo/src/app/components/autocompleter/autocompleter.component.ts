@@ -2,7 +2,19 @@ import { JsonPipe } from '@angular/common';
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
 import { NavigateService } from '../../services/navigate.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import {
+	asyncScheduler,
+	combineLatest,
+	debounceTime,
+	distinctUntilChanged,
+	interval,
+	map,
+	merge,
+	of,
+	switchMap,
+	throttleTime,
+	timer,
+} from 'rxjs';
 
 @Component({
 	selector: 'app-autocompleter',
@@ -20,12 +32,38 @@ export class AutocompleterComponent<T extends {}> implements OnInit {
 	navigateService = inject(NavigateService);
 
 	ngOnInit() {
-		this.query.valueChanges
-			.pipe(
-				debounceTime(300),
-				distinctUntilChanged()
-			)
-			.subscribe(x => this.autocomplete());
+		this.query.valueChanges.pipe(
+			switchMap(value => 
+			  merge(
+				// Debounced stream
+				of(value).pipe(
+				  debounceTime(300),
+				  map(v => ({ type: 'debounced', value: v }))
+				),
+				// Throttled stream
+				of(value).pipe(
+				  throttleTime(1000, asyncScheduler, { leading: true, trailing: true }),
+				  map(v => ({ type: 'throttled', value: v }))
+				)
+			  )
+			),
+			switchMap(({ type, value }) => {
+			  console.log(`Emitting ${type} value: ${value}`);
+			  // Your logic here
+			  return of(value);
+			})
+		  ).subscribe(result => {
+			console.log('Final result:', result);
+		  });
+
+		// let autocompleter$ = this.query.valueChanges
+		// 	.pipe(
+		// 		debounceTime(300),
+		// 		distinctUntilChanged()
+		// 	);
+		// 	let timer$ = interval(500);
+
+		// 	autocompleter$.pipe(combineLatest(timer$)).subscribe(x => this.autocomplete());
 	}
 
 	autocomplete() {

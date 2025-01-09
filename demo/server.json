@@ -41,6 +41,69 @@
       "type": "Fuck all",
       "photoUrl": "https://m.media-amazon.com/images/I/71KzKmyXwrL.jpg",
       "id": 18
+    },
+    {
+      "reversable": false,
+      "name": "VGA3",
+      "type": "Screwed",
+      "photoUrl": "https://m.media-amazon.com/images/I/71KzKmyXwrL.jpg",
+      "id": 19
+    },
+    {
+      "reversable": false,
+      "name": "VGA5",
+      "type": "Trapazoid",
+      "photoUrl": "https://m.media-amazon.com/images/I/71KzKmyXwrL.jpg",
+      "id": 20
+    },
+    {
+      "name": "BGA9",
+      "type": "Weird",
+      "reversable": true,
+      "photoUrl": "https://m.media-amazon.com/images/I/71KzKmyXwrL.jpg",
+      "id": 21
+    },
+    {
+      "name": "VGA12",
+      "type": "Fuck all",
+      "reversable": true,
+      "photoUrl": "https://m.media-amazon.com/images/I/71KzKmyXwrL.jpg",
+      "id": 22
+    },
+    {
+      "name": "dhdjdjd",
+      "type": "Round",
+      "reversable": true,
+      "photoUrl": "BGA9",
+      "id": 23
+    },
+    {
+      "name": "qq",
+      "type": "Trapazoid",
+      "reversable": false,
+      "photoUrl": "dhdjdjd",
+      "id": 24
+    },
+    {
+      "name": "dhdjdjd",
+      "type": "Round",
+      "reversable": true,
+      "photoUrl": "asdasd",
+      "id": 25
+    },
+    {
+      "name": "dhdjdjd",
+      "type": "Fuck all",
+      "reversable": true,
+      "photoUrl": "asdasd",
+      "id": 26
+    },
+    {
+      "name": "VGAwesome",
+      "type": "Weird",
+      "reversable": true,
+      "photoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjzZ83L5HONNGAdN8gnAu1RzURv4gbmQWWDw&s",
+      "id": 27
     }
   ]
 }
